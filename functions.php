@@ -1,19 +1,12 @@
 <?php
-function create_input(string $name, string $type, string $placeholder = null, string $default_value = null, bool $required = false, string $error_message = null)
-{
-    return '
-    <div class="w-full flex flex-col">
-        <input 
-        type="' . $type . '" 
-        name="' . $name . '" 
-        placeholder="' . $placeholder . '" 
-        ' . ($required ? 'required' : '') . ' 
-        value="' . $default_value . '" 
-        class="bg-transparent border-gray-300 duration-200 px-2 py-1 border-b focus:border-black outline-none">
-
-        <span class="text-red-500 text-xs ' . ($error_message ? 'visible' : 'invisible') . '">
-            ' . ($error_message ?: '-') . '
-        </span>
-    </div>
-    ';
+// Form inputlarını oluşturmak için yardımcı fonksiyon
+function create_input($name, $type, $label, $value = "", $required = false, $error_message = "") {
+    $required_attr = $required ? "required" : ""; // Zorunlu alanları belirtir
+    $error_class = !empty($error_message) ? "border-red-500" : ""; // Hata varsa kırmızı border ekler
+    return "
+    <div class='w-full'>
+        <label for='{$name}' class='block text-sm font-medium text-gray-700'>{$label}</label>
+        <input type='{$type}' name='{$name}' id='{$name}' value='{$value}' class='mt-1 block w-full px-3 py-2 border {$error_class} rounded-md shadow-sm focus:outline-none sm:text-sm' {$required_attr}>
+        <p class='text-red-500 text-xs italic'>{$error_message}</p>
+    </div>";
 }

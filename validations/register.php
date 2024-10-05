@@ -1,23 +1,32 @@
 <?php
-require "./functions.php";
+// Kullanıcı adı doğrulama fonksiyonu
+function username_validation($username) {
+    if (empty($username)) {
+        return "Kullanıcı adı boş olamaz."; // Eğer kullanıcı adı boşsa hata döndür
+    }
+    return null; // Hata yoksa null döner
+}
 
-// Başlangıçta $error_message değişkenini tanımlayın
-$error_message = (object)[
-    'username' => null,
-    'password' => null,
-    'email' => null,
-    'password_confirm' => null
-];
+// Şifre doğrulama fonksiyonu
+function password_validation($password) {
+    if (strlen($password) < 8) {
+        return "Şifre en az 8 karakter olmalıdır."; // Şifre uzunluğu kontrolü
+    }
+    return null; // Hata yoksa null döner
+}
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $username = $_POST["username"];
-    $password = $_POST["password"];
-    $email = $_POST["email"];
-    $password_confirm = $_POST["password_confirm"];
+// E-posta doğrulama fonksiyonu
+function email_validation($email) {
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        return "Geçersiz e-posta formatı."; // E-posta formatı kontrolü
+    }
+    return null; // Hata yoksa null döner
+}
 
-    // Doğrulamaları burada yapın ve hata mesajlarını $error_message nesnesine atayın
-    $error_message->username = username_validation($username);
-    $error_message->password = password_validation($password);
-    $error_message->email = email_validation($email);
-    $error_message->password_confirm = password_and_password_confirm_validation($password, $password_confirm);
+// Şifre ve şifre tekrar doğrulama fonksiyonu
+function password_and_password_confirm_validation($password, $password_confirm) {
+    if ($password !== $password_confirm) {
+        return "Şifreler eşleşmiyor."; // Şifrelerin eşleşip eşleşmediğini kontrol eder
+    }
+    return null; // Hata yoksa null döner
 }
