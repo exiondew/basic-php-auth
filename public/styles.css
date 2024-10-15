@@ -1,0 +1,10 @@
+html,
+body {
+  width: 100dvw;
+  min-height: 100dvh;
+}
+
+.flex-center {
+  align-items: center;
+  justify-content: center;
+}
