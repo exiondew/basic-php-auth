@@ -4,7 +4,7 @@ require_once "../config/database.php";
 
 function validate_username($username)
 {
-    // Kullanıcı adı boş olamaz
+
     if (empty($username)) {
         return "Kullanıcı adı boş bırakılamaz.";
     } else if (strlen($username) < 3 || strlen($username) > 16) {
@@ -22,7 +22,7 @@ function validate_username($username)
 
 function validate_email($email)
 {
-    // E-posta adresi boş olamaz
+
     if (empty($email)) {
         return "E-posta boş bırakılamaz.";
     } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -37,42 +37,32 @@ function validate_email($email)
 
 function validate_password($password)
 {
-    // Şifre boş olamaz
+
     if (empty($password)) {
         return "Şifre boş bırakılamaz.";
-    }
-
-    // Şifre uzunluğu 8-32 karakter arasında olmalıdır
-    if (strlen($password) < 8 || strlen($password) > 32) {
+    } else if (strlen($password) < 8 || strlen($password) > 32) {
         return "Şifreniz 8-32 karakter arasında olmalıdır.";
-    }
-
-    // Şifre en az bir küçük harf, büyük harf, sayı ve özel karakter içermelidir
-    if (!preg_match('/[a-z]/', $password)) {
+    } else if (!preg_match('/[a-z]/', $password)) {
         return "Şifre en az bir küçük harf içermelidir.";
-    }
-    if (!preg_match('/[A-Z]/', $password)) {
+    } else if (!preg_match('/[A-Z]/', $password)) {
         return "Şifre en az bir büyük harf içermelidir.";
-    }
-    if (!preg_match('/[0-9]/', $password)) {
+    } else if (!preg_match('/[0-9]/', $password)) {
         return "Şifre en az bir rakam içermelidir.";
-    }
-    if (!preg_match('/[\W_]/', $password)) {
+    } else if (!preg_match('/[\W_]/', $password)) {
         return "Şifre en az bir özel karakter içermelidir.";
+    } else {
+        return null;
     }
-
-    return null;
 }
 
 function validate_password_confirmation($password, $confirmPassword)
 {
-    // Şifrelerin eşleşip eşleşmediğini kontrol et
+
     if ($password !== $confirmPassword) {
         return "Şifreler uyuşmuyor!";
+    } else {
+        return validate_password($password);
     }
-
-    // Şifre doğrulama fonksiyonunu da çalıştır
-    return validate_password($password);
 }
 
 // Kullanıcı giriş doğrulama fonksiyonu

@@ -42,7 +42,7 @@ function query($sql, $params = null)
         // Sonuçları fetchAll() ile döndür
         return $stmt->fetchAll();
     } catch (PDOException $e) {
-        // Hata mesajını döndür (geliştirme ortamı için; üretimde kullanıcıya gösterilmemeli)
+
         return 'Error: ' . $e->getMessage();
     }
 }
