@@ -10,7 +10,7 @@
 </head>
 
 <body class="bg-gray-900 text-white">
-    <div>
+    <div class="flex flex-col gap-2">
         <a href="login.php">Giriş Yap</a>
         <a href="register.php">Hesap Oluştur</a>
     </div>

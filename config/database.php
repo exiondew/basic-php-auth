@@ -3,7 +3,7 @@
 function connectDB()
 {
 
-    require_once "./env.php";
+    require_once __DIR__ . "/env.php";
 
 
     $dsn = (string) "mysql:host=" . $DB_HOST . ";dbname=" . $DB_NAME . ";charset=utf8mb4";
